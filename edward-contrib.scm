@@ -1,5 +1,4 @@
 (import (scheme base)
-        (chicken port)
 
         (edward cli)
         (edward parse)
@@ -9,10 +8,12 @@
         (edward ed posix)
         (edward ed editor))
 
+(include "util.scm")
+
 ;; Executor for the 'z' command.
-(define (exec-scroll editor amount)
-  (println "amount: " amount)
-  (let* ((start  (addr->line editor (make-addr '(current-line))))
+(define (exec-scroll editor %amount)
+  (let* ((amount (if %amount %amount (terminal-rows)))
+         (start  (addr->line editor (make-addr '(current-line))))
          (end    (addr->line editor (make-addr
                                       (cons 'nth-line
                                             (min
@@ -23,13 +24,7 @@
 ;; Parser for the 'z' command.
 (define-edit-cmd (scroll exec-scroll)
   (parse-cmd-char #\z)
-  (parse-default
-    parse-digits
-    (let*-values (((port) (current-output-port))
-                  ((rows _) (if (terminal-port? port)
-                              (terminal-size port)
-                              (values 22 72))))
-      rows)))
+  (parse-optional parse-digits))
 
 ;; Start the editor
 (edward-main)

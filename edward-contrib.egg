@@ -5,4 +5,5 @@
  (platform unix)
  (dependencies edward)
  (components
-   (program edward-contrib)))
+   (program edward-contrib)
+   (source-dependencies "util.scm")))
