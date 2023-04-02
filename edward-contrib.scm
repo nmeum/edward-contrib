@@ -25,7 +25,7 @@
 ;; Parser for the 'z' command.
 (define-file-cmd (scroll exec-scroll (make-addr '(current-line) '(+1)))
   (parse-cmd-char #\z)
-  (parse-optional parse-digits))
+  (parse-optional parse-number))
 
 ;; Start the editor
 (edward-main)
