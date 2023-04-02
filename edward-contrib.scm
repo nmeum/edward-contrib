@@ -22,7 +22,7 @@
     (exec-print editor (cons start end))))
 
 ;; Parser for the 'z' command.
-(define-edit-cmd (scroll exec-scroll)
+(define-file-cmd (scroll exec-scroll)
   (parse-cmd-char #\z)
   (parse-optional parse-digits))
 
