@@ -15,6 +15,24 @@
 (include "ctags.scm")
 
 ;;;;
+;; The pipe command.
+;;;;
+
+(define (exec-pipe editor range cmd)
+  (let-values (((in out _) (process cmd))
+               ((lines) (editor-get-lines editor range)))
+    (write-string (lines->string lines) out)
+    (close-output-port out)
+    (let ((recv (port->lines in)))
+      (close-input-port in)
+      (exec-delete editor range)
+      (exec-insert editor (car range) (car recv)))))
+
+(define-file-cmd (pipe exec-pipe (make-range))
+  (parse-cmd-char #\|)
+  (parse-token (char-set-delete char-set:full #\newline)))
+
+;;;;
 ;; The ctags command.
 ;;;;
 
