@@ -1,0 +1,5 @@
+edward-contrib
+edward-contrib.build.sh
+edward-contrib.import.scm
+edward-contrib.install.sh
+edward-contrib.link

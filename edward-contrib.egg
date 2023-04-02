@@ -1,0 +1,8 @@
+((author "Sören Tempel")
+ (synopsis "A variant of the edward text editor with non-POSIX extensions")
+ (version "0.1.0")
+ (license "GPLv3")
+ (platform unix)
+ (dependencies edward)
+ (components
+   (program edward-contrib)))
