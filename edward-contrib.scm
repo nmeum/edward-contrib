@@ -1,4 +1,6 @@
 (import (scheme base)
+        (srfi 1)
+        (srfi 14)
         (chicken process)
 
         (edward cli)
@@ -10,6 +12,28 @@
         (edward ed editor))
 
 (include "util.scm")
+(include "ctags.scm")
+
+;;;;
+;; The ctags command.
+;;;;
+
+(define (exec-tag editor name)
+  (let* ((cmd (string-append "!" "readtags -n - " name))
+         (out (car (read-from cmd))))
+    (if (null? out)
+      (editor-error editor (string-append "tag not found: " name))
+      (let* ((tags (parse-tags out))
+             (tag  (get-tag tags 1)))
+        (unless (equal? (tag-file tag) (text-editor-filename editor))
+          (%exec-edit editor (tag-file tag)))
+        (let* ((addrlst (parse parse-addrs (tag-regex tag)))
+               (lpair   (addrlst->lpair editor addrlst)))
+          (exec-print editor lpair))))))
+
+(define-file-cmd (tag exec-tag)
+  (parse-cmd-char #\T)
+  (parse-token char-set:graphic))
 
 ;;;;
 ;; The FZF command.
