@@ -3,7 +3,9 @@
  (version "0.1.0")
  (license "GPLv3")
  (platform unix)
- (dependencies edward)
+ (dependencies r7rs edward)
+ (component-options
+   (csc-options "-X" "r7rs" "-R" "r7rs"))
  (components
    (program edward-contrib)
    (source-dependencies "util.scm")))
