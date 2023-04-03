@@ -15,7 +15,7 @@
 (define parse-number
   (parse-map
     (parse-seq
-      (parse-char #\-)
+      (parse-optional (parse-char #\-))
       parse-digits)
     (lambda (x)
       (let ((p (car x))
