@@ -7,5 +7,5 @@
  (component-options
    (csc-options "-d3" "-O3" "-X" "r7rs" "-R" "r7rs"))
  (components
-   (program edward-contrib)
-   (source-dependencies "util.scm" "ctags.scm")))
+   (program edward-contrib
+            (source-dependencies "util.scm" "ctags.scm"))))
