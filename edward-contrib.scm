@@ -64,7 +64,7 @@
 
 (define-file-cmd (scroll exec-scroll (make-addr '(current-line) '(+1)))
   (parse-cmd-char #\z)
-  (parse-optional parse-number))
+  (parse-optional parse-digits))
 
 ;; Start the editor
 (edward-main)

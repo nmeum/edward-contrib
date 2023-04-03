@@ -11,13 +11,3 @@
                               (terminal-size port)
                               (values 22 72))))
       rows))
-
-(define parse-number
-  (parse-map
-    (parse-seq
-      (parse-optional (parse-char #\-))
-      parse-digits)
-    (lambda (x)
-      (let ((p (car x))
-            (n (cadr x)))
-        (if p (* n -1) n)))))
