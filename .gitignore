@@ -1,4 +1,5 @@
 edward-contrib
+edward-contrib.c
 edward-contrib.build.sh
 edward-contrib.import.scm
 edward-contrib.install.sh
