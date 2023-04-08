@@ -30,7 +30,7 @@
 
 (define-file-cmd (pipe exec-pipe (make-range))
   (parse-cmd-char #\|)
-  (parse-token (char-set-delete char-set:full #\newline)))
+  (parse-token (char-set-complement (char-set #\newline))))
 
 ;;;;
 ;; The ctags command.
