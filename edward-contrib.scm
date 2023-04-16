@@ -58,8 +58,9 @@
 
 (define (exec-fzf editor)
   (let* ((cmd (string-append "!" "fzf"))
-         (out (caar (read-from cmd))))
-    (%exec-edit editor out)))
+         (out (read-from cmd)))
+    (unless (null? (car out))
+      (%exec-edit editor (caar out)))))
 
 (define-file-cmd (fzf exec-fzf)
   (parse-cmd-char #\F))
