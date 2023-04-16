@@ -84,5 +84,9 @@
   (parse-cmd-char #\z)
   (parse-optional parse-digits))
 
-;; Start the editor
-(edward-main)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(cond-expand
+  ((or chicken-script compiling)
+   (edward-main))
+  (else #t))
