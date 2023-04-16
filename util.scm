@@ -1,6 +1,9 @@
 (import (scheme base)
+
         (chicken port)
         (chicken process)
+        (chicken string)
+
         (edward util)
         (edward ed editor))
 
@@ -27,3 +30,27 @@
           (close-input-port in)
           (cdr (assoc (car (car recv)) mapping)))
         (editor-raise "failed to spawn fzf")))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; This code implements a very silly "parser" for the output of
+;; the readtags(1) command which is passed as a list of lines.
+
+(define-record-type Tag
+  (make-tag name file regex)
+  tag?
+  (name tag-name)
+  (file tag-file)
+  (regex tag-regex))
+
+(define (parse-tags lines)
+  (let ((fields (map (lambda (line) (string-split line "\t" #t)) lines)))
+    (map (lambda (lst) (apply make-tag lst)) fields)))
+
+(define (select-tag tags)
+  (define (tag->string tag)
+    (string-append (tag-file tag) ": " (tag-name tag)))
+
+  (if (eq? (length tags) 1)
+    (car tags)
+    (menu-select tag->string tags)))

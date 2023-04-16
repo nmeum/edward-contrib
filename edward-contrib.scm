@@ -12,7 +12,6 @@
         (edward ed editor))
 
 (include "util.scm")
-(include "ctags.scm")
 
 ;;;;
 ;; The pipe command.
