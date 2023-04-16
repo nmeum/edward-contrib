@@ -28,7 +28,9 @@
       (if succ?
         (let ((recv (port->lines in)))
           (close-input-port in)
-          (cdr (assoc (car (car recv)) mapping)))
+          (if (null? (car recv))
+            (editor-raise "no element selected")
+            (cdr (assoc (caar recv) mapping))))
         (editor-raise "failed to spawn fzf")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
