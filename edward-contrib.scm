@@ -42,7 +42,7 @@
     (if (null? out)
       (editor-error editor (string-append "tag not found: " name))
       (let* ((tags (parse-tags out))
-             (tag  (get-tag tags 1)))
+             (tag  (select-tag tags)))
         (unless (equal? (tag-file tag) (text-editor-filename editor))
           (%exec-edit editor (tag-file tag)))
         (let* ((addrlst (parse parse-addrs (tag-regex tag)))

@@ -16,5 +16,10 @@
   (let ((fields (map (lambda (line) (string-split line "\t" #t)) lines)))
     (map (lambda (lst) (apply make-tag lst)) fields)))
 
-(define (get-tag tags nth)
-  (list-ref tags (max 0 (dec nth))))
+(define (tag->string tag)
+  (string-append (tag-file tag) ": " (tag-name tag)))
+
+(define (select-tag tags)
+  (if (eq? (length tags) 1)
+    (car tags)
+    (menu-select tag->string tags)))

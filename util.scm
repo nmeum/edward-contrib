@@ -16,13 +16,14 @@
       rows))
 
 ;; Select a single item from a list of strings interactively using FZF.
-(define (menu-select lst)
-  (let-values (((in out pid) (process "fzf")))
-    (write-string (lines->string lst) out)
+(define (menu-select show-proc lst)
+  (let-values (((in out pid) (process "fzf"))
+               ((mapping) (map (lambda (x) (cons (show-proc x) x)) lst)))
+    (write-string (lines->string (map car mapping)) out)
     (close-output-port out)
     (let-values (((_ succ? exit-code) (process-wait pid)))
       (if succ?
         (let ((recv (port->lines in)))
           (close-input-port in)
-          (car (car recv)))
+          (cdr (assoc (car (car recv)) mapping)))
         (editor-raise "failed to spawn fzf")))))
