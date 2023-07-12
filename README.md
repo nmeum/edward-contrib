@@ -15,7 +15,13 @@ Using this library interface, the following commands have been implemented in th
 
 ## Installation
 
-Refer to the [edward installation instructions][edward install].
+Assuming [CHICKEN][chicken web] is already installed, run:
+
+    $ git clone https://github.com/nmeum/edward-contrib
+    $ cd edward-contrib
+    $ chicken-install
+
+Afterwards, `edward-contrib` should be available in your `$PATH`.
 
 ## License
 
@@ -36,4 +42,4 @@ with this program. If not, see <https://www.gnu.org/licenses/>.
 [edward doc]: https://files.8pit.net/edward/doc
 [fzf github]: https://github.com/junegunn/fzf
 [ctags web]: https://ctags.io/
-[edward install]: https://github.com/nmeum/edward#installation
+[CHICKEN web]: https://call-cc.org
